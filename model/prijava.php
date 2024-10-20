@@ -27,8 +27,10 @@ class Prijava{
         $query_str = "INSERT INTO prijave(predmet, katedra, sala, datum) VALUES ('$prijava->predmet', '$prijava->katedra', '$prijava->sala', '$prijava->datum')";
         return $conn->query($query_str);
     }
-    public function update(mysqli $conn){
-        $query = "UPDATE prijave set predmet = '$this->predmet', katedra = '$this->katedra', sala = '$this->sala', datum = '$this->datum'";
+    public static function update(Prijava $prijava,mysqli $conn){
+        $query = "UPDATE prijave 
+                    set predmet = '$prijava->predmet', katedra = '$prijava->katedra', sala = '$prijava->sala', datum = '$prijava->datum'
+                    where id = '$prijava->id'";
         return $conn->query($query);
     }
 }

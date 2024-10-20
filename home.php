@@ -1,7 +1,9 @@
 <?php 
-
-require "model/prijava.php";
 require "dbBroker.php";
+require "model/prijava.php";
+require "handler/delete.php";
+require "handler/add.php";
+require "handler/update.php";
 
 session_start();
 
@@ -14,10 +16,6 @@ $result = Prijava :: getAll($conn);
 
 if(!$result){
     echo("nastala je greska prilikom izvodjenja upita <br>");
-    die();
-}
-if($result->num_rows == 0){
-    echo("nema prijava");
     die();
 }
 if(isset($_POST['submit']) && isset($_POST))
@@ -69,7 +67,6 @@ if(isset($_POST['submit']) && isset($_POST))
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if ($result->num_rows > 0) :?>
                             <?php while ($red = $result->fetch_array()) { ?>
                                 <tr>
                                     <td><?php echo $red["predmet"] ?></td>
@@ -83,11 +80,10 @@ if(isset($_POST['submit']) && isset($_POST))
                                         </label>
                                     </td>
                                 </tr>
-                            <?php } else: ?>
+                            <?php } ?>
                             <tr>
                                 <td colspan="5" class="text-center">Nema unetih kolokvijuma</td>
                             </tr>
-                            <?php endif; ?>
                         </tbody>
                     </table>
 
