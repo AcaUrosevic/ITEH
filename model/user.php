@@ -12,9 +12,9 @@ class User
         $this->password = $password;
     }
 
-    public function login(User $user, mysqli $conn)
+    public static function login(User $user, mysqli $conn)
     {
-        $query_string = "select * from user where username = '$user->username' and password = '$user->password'";
+        $query_string = "SELECT * from user where username = '$user->username' and password = '$user->password'";
         return $conn->query($query_string);
     }
 }
