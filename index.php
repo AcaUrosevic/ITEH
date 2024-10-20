@@ -9,6 +9,7 @@ if (isset($_POST['submit']) && isset($_POST['username']) && isset($_POST['passwo
     $user = new User(1, $u, $p);
     $rs = User::login($user, $conn);
     if ($rs->num_rows == 1) {
+        $_SESSION['userId'] = $user->id;
         header("Location: home.php");
         exit();
     }
