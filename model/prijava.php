@@ -19,4 +19,16 @@ class Prijava{
         $queryString = "SELECT * from prijave";
         return $conn->query($queryString);
     }
+    public static function deleteById($id,mysqli $conn){
+        $query = "DELETE from prijave where id = '$id'";
+        return $conn->query($query);
+    }
+    public static function add(Prijava $prijava,mysqli $conn){
+        $query_str = "INSERT INTO prijave(predmet, katedra, sala, datum) VALUES ('$prijava->predmet', '$prijava->katedra', '$prijava->sala', '$prijava->datum')";
+        return $conn->query($query_str);
+    }
+    public function update(mysqli $conn){
+        $query = "UPDATE prijave set predmet = '$this->predmet', katedra = '$this->katedra', sala = '$this->sala', datum = '$this->datum'";
+        return $conn->query($query);
+    }
 }

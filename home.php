@@ -1,14 +1,26 @@
 <?php 
 
 require "model/prijava.php";
+require "dbBroker.php";
 
 session_start();
 
-if(!isset($_SESSION['userId'])){
+if(!isset($_SESSION['user_id'])){
     header("Location: index.php");
     exit();
 }
 
+$result = Prijava :: getAll($conn);
+
+if(!$result){
+    echo("nastala je greska prilikom izvodjenja upita <br>");
+    die();
+}
+if($result->num_rows == 0){
+    echo("nema prijava");
+    die();
+}
+if(isset($_POST['submit']) && isset($_POST))
 
 ?>
 
@@ -57,6 +69,7 @@ if(!isset($_SESSION['userId'])){
                             </tr>
                         </thead>
                         <tbody>
+                            <?php if ($result->num_rows > 0) :?>
                             <?php while ($red = $result->fetch_array()) { ?>
                                 <tr>
                                     <td><?php echo $red["predmet"] ?></td>
@@ -70,11 +83,11 @@ if(!isset($_SESSION['userId'])){
                                         </label>
                                     </td>
                                 </tr>
-                            <?php } ?>
-                            ?>
+                            <?php } else: ?>
                             <tr>
                                 <td colspan="5" class="text-center">Nema unetih kolokvijuma</td>
                             </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
 

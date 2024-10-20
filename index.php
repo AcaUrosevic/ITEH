@@ -8,10 +8,13 @@ if (isset($_POST['submit']) && isset($_POST['username']) && isset($_POST['passwo
     $p = $_POST['password'];
     $user = new User(1, $u, $p);
     $rs = User::login($user, $conn);
-    if ($rs->num_rows == 1) {
-        $_SESSION['userId'] = $user->id;
-        header("Location: home.php");
+    if($rs->num_rows == 1) {
+        $_SESSION['user_id'] = $user->id;
+        header('Location: home.php');
         exit();
+    }
+    else {
+        echo "Neuspesno logovanje";
     }
 }
 
